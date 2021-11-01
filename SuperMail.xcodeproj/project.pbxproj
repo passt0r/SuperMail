@@ -9,23 +9,55 @@
 /* Begin PBXBuildFile section */
 		59FCE0B1271DB5BF00F74F68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0B0271DB5BF00F74F68 /* AppDelegate.swift */; };
 		59FCE0B3271DB5BF00F74F68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0B2271DB5BF00F74F68 /* SceneDelegate.swift */; };
-		59FCE0B5271DB5BF00F74F68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0B4271DB5BF00F74F68 /* ViewController.swift */; };
-		59FCE0B8271DB5BF00F74F68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0B6271DB5BF00F74F68 /* Main.storyboard */; };
 		59FCE0BB271DB5BF00F74F68 /* SuperMail.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0B9271DB5BF00F74F68 /* SuperMail.xcdatamodeld */; };
 		59FCE0BD271DB5C100F74F68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0BC271DB5C100F74F68 /* Assets.xcassets */; };
 		59FCE0C0271DB5C100F74F68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0BE271DB5C100F74F68 /* LaunchScreen.storyboard */; };
+		59FCE0C8271EFF7300F74F68 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0C7271EFF7300F74F68 /* SplitViewController.swift */; };
+		59FCE0CA271F012400F74F68 /* MailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0C9271F012400F74F68 /* MailListViewController.swift */; };
+		59FCE0CC271F014300F74F68 /* MailDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0CB271F014300F74F68 /* MailDetailViewController.swift */; };
+		59FCE0CE271F27E700F74F68 /* MailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0CD271F27E700F74F68 /* MailModel.swift */; };
+		59FCE0D0271F2E0F00F74F68 /* MailNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0CF271F2E0F00F74F68 /* MailNetworkService.swift */; };
+		59FCE0D3271F759000F74F68 /* MailURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0D2271F759000F74F68 /* MailURLProtocol.swift */; };
+		59FCE0D5271F8D6C00F74F68 /* MailCoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0D4271F8D6C00F74F68 /* MailCoreDataController.swift */; };
+		59FCE0D8272F2CF100F74F68 /* MailListNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0D7272F2CF100F74F68 /* MailListNetworkModel.swift */; };
+		59FCE0DA272F2CFD00F74F68 /* MailContentNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0D9272F2CFD00F74F68 /* MailContentNetworkModel.swift */; };
+		59FCE0DC272F622100F74F68 /* MailServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0DB272F622100F74F68 /* MailServices.swift */; };
+		59FCE0DE272F64C000F74F68 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0DD272F64C000F74F68 /* User.swift */; };
+		59FCE0E0272F706A00F74F68 /* MailListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0DF272F706A00F74F68 /* MailListRequest.swift */; };
+		59FCE0E2272F707900F74F68 /* MailDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0E1272F707900F74F68 /* MailDetailRequest.swift */; };
+		59FCE0E4272F70E300F74F68 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0E3272F70E300F74F68 /* RequestProtocol.swift */; };
+		59FCE0EA272F771F00F74F68 /* mailList.json in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0E6272F771F00F74F68 /* mailList.json */; };
+		59FCE0EB272F771F00F74F68 /* mailContent.json in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0E7272F771F00F74F68 /* mailContent.json */; };
+		59FCE0EC272F771F00F74F68 /* mailListPart1.json in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0E8272F771F00F74F68 /* mailListPart1.json */; };
+		59FCE0ED272F771F00F74F68 /* mailListPart2.json in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0E9272F771F00F74F68 /* mailListPart2.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		59FCE0AD271DB5BF00F74F68 /* SuperMail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperMail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FCE0B0271DB5BF00F74F68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59FCE0B2271DB5BF00F74F68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		59FCE0B4271DB5BF00F74F68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		59FCE0B7271DB5BF00F74F68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		59FCE0BA271DB5BF00F74F68 /* SuperMail.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SuperMail.xcdatamodel; sourceTree = "<group>"; };
 		59FCE0BC271DB5C100F74F68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59FCE0BF271DB5C100F74F68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59FCE0C1271DB5C100F74F68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59FCE0C7271EFF7300F74F68 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		59FCE0C9271F012400F74F68 /* MailListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailListViewController.swift; sourceTree = "<group>"; };
+		59FCE0CB271F014300F74F68 /* MailDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailDetailViewController.swift; sourceTree = "<group>"; };
+		59FCE0CD271F27E700F74F68 /* MailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailModel.swift; sourceTree = "<group>"; };
+		59FCE0CF271F2E0F00F74F68 /* MailNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailNetworkService.swift; sourceTree = "<group>"; };
+		59FCE0D2271F759000F74F68 /* MailURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailURLProtocol.swift; sourceTree = "<group>"; };
+		59FCE0D4271F8D6C00F74F68 /* MailCoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailCoreDataController.swift; sourceTree = "<group>"; };
+		59FCE0D7272F2CF100F74F68 /* MailListNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailListNetworkModel.swift; sourceTree = "<group>"; };
+		59FCE0D9272F2CFD00F74F68 /* MailContentNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailContentNetworkModel.swift; sourceTree = "<group>"; };
+		59FCE0DB272F622100F74F68 /* MailServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailServices.swift; sourceTree = "<group>"; };
+		59FCE0DD272F64C000F74F68 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		59FCE0DF272F706A00F74F68 /* MailListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailListRequest.swift; sourceTree = "<group>"; };
+		59FCE0E1272F707900F74F68 /* MailDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailDetailRequest.swift; sourceTree = "<group>"; };
+		59FCE0E3272F70E300F74F68 /* RequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
+		59FCE0E6272F771F00F74F68 /* mailList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mailList.json; sourceTree = "<group>"; };
+		59FCE0E7272F771F00F74F68 /* mailContent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mailContent.json; sourceTree = "<group>"; };
+		59FCE0E8272F771F00F74F68 /* mailListPart1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mailListPart1.json; sourceTree = "<group>"; };
+		59FCE0E9272F771F00F74F68 /* mailListPart2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mailListPart2.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +74,7 @@
 		59FCE0A4271DB5BF00F74F68 = {
 			isa = PBXGroup;
 			children = (
+				59FCE0E5272F770700F74F68 /* Resources */,
 				59FCE0AF271DB5BF00F74F68 /* SuperMail */,
 				59FCE0AE271DB5BF00F74F68 /* Products */,
 			);
@@ -58,16 +91,55 @@
 		59FCE0AF271DB5BF00F74F68 /* SuperMail */ = {
 			isa = PBXGroup;
 			children = (
+				59FCE0D4271F8D6C00F74F68 /* MailCoreDataController.swift */,
+				59FCE0CD271F27E700F74F68 /* MailModel.swift */,
+				59FCE0DB272F622100F74F68 /* MailServices.swift */,
+				59FCE0DF272F706A00F74F68 /* MailListRequest.swift */,
+				59FCE0E3272F70E300F74F68 /* RequestProtocol.swift */,
+				59FCE0E1272F707900F74F68 /* MailDetailRequest.swift */,
+				59FCE0D6272F2C0000F74F68 /* Servers */,
+				59FCE0D1271F2E1C00F74F68 /* Models */,
 				59FCE0B0271DB5BF00F74F68 /* AppDelegate.swift */,
 				59FCE0B2271DB5BF00F74F68 /* SceneDelegate.swift */,
-				59FCE0B4271DB5BF00F74F68 /* ViewController.swift */,
-				59FCE0B6271DB5BF00F74F68 /* Main.storyboard */,
+				59FCE0C9271F012400F74F68 /* MailListViewController.swift */,
+				59FCE0CB271F014300F74F68 /* MailDetailViewController.swift */,
+				59FCE0C7271EFF7300F74F68 /* SplitViewController.swift */,
 				59FCE0BC271DB5C100F74F68 /* Assets.xcassets */,
 				59FCE0BE271DB5C100F74F68 /* LaunchScreen.storyboard */,
 				59FCE0C1271DB5C100F74F68 /* Info.plist */,
 				59FCE0B9271DB5BF00F74F68 /* SuperMail.xcdatamodeld */,
 			);
 			path = SuperMail;
+			sourceTree = "<group>";
+		};
+		59FCE0D1271F2E1C00F74F68 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				59FCE0CF271F2E0F00F74F68 /* MailNetworkService.swift */,
+				59FCE0DD272F64C000F74F68 /* User.swift */,
+				59FCE0D7272F2CF100F74F68 /* MailListNetworkModel.swift */,
+				59FCE0D9272F2CFD00F74F68 /* MailContentNetworkModel.swift */,
+				59FCE0D2271F759000F74F68 /* MailURLProtocol.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		59FCE0D6272F2C0000F74F68 /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Servers;
+			sourceTree = "<group>";
+		};
+		59FCE0E5272F770700F74F68 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				59FCE0E7272F771F00F74F68 /* mailContent.json */,
+				59FCE0E6272F771F00F74F68 /* mailList.json */,
+				59FCE0E8272F771F00F74F68 /* mailListPart1.json */,
+				59FCE0E9272F771F00F74F68 /* mailListPart2.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,9 +200,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59FCE0ED272F771F00F74F68 /* mailListPart2.json in Resources */,
+				59FCE0EC272F771F00F74F68 /* mailListPart1.json in Resources */,
+				59FCE0EA272F771F00F74F68 /* mailList.json in Resources */,
 				59FCE0C0271DB5C100F74F68 /* LaunchScreen.storyboard in Resources */,
+				59FCE0EB272F771F00F74F68 /* mailContent.json in Resources */,
 				59FCE0BD271DB5C100F74F68 /* Assets.xcassets in Resources */,
-				59FCE0B8271DB5BF00F74F68 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +216,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59FCE0C8271EFF7300F74F68 /* SplitViewController.swift in Sources */,
+				59FCE0E2272F707900F74F68 /* MailDetailRequest.swift in Sources */,
+				59FCE0D0271F2E0F00F74F68 /* MailNetworkService.swift in Sources */,
 				59FCE0BB271DB5BF00F74F68 /* SuperMail.xcdatamodeld in Sources */,
-				59FCE0B5271DB5BF00F74F68 /* ViewController.swift in Sources */,
+				59FCE0CA271F012400F74F68 /* MailListViewController.swift in Sources */,
+				59FCE0D3271F759000F74F68 /* MailURLProtocol.swift in Sources */,
 				59FCE0B1271DB5BF00F74F68 /* AppDelegate.swift in Sources */,
+				59FCE0DE272F64C000F74F68 /* User.swift in Sources */,
+				59FCE0CC271F014300F74F68 /* MailDetailViewController.swift in Sources */,
+				59FCE0D5271F8D6C00F74F68 /* MailCoreDataController.swift in Sources */,
+				59FCE0DC272F622100F74F68 /* MailServices.swift in Sources */,
+				59FCE0DA272F2CFD00F74F68 /* MailContentNetworkModel.swift in Sources */,
 				59FCE0B3271DB5BF00F74F68 /* SceneDelegate.swift in Sources */,
+				59FCE0E0272F706A00F74F68 /* MailListRequest.swift in Sources */,
+				59FCE0CE271F27E700F74F68 /* MailModel.swift in Sources */,
+				59FCE0E4272F70E300F74F68 /* RequestProtocol.swift in Sources */,
+				59FCE0D8272F2CF100F74F68 /* MailListNetworkModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		59FCE0B6271DB5BF00F74F68 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				59FCE0B7271DB5BF00F74F68 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		59FCE0BE271DB5C100F74F68 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,7 +377,6 @@
 				INFOPLIST_FILE = SuperMail/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,7 +403,6 @@
 				INFOPLIST_FILE = SuperMail/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  SuperMail
 //
-//  Created by Dmytro Pasinchuk on 18.10.2021.
+//  Created by Dmytro Pasinchuk on 17.10.2021.
 //
 
 import UIKit
@@ -10,13 +10,25 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var mailPersistenceStorage: MailPersistenceStorageProtocol?
+    var userManager: UserManager?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        let persistanceController = provideStorage()
+        let networkController = provideNetwork()
+        let userManager = provideUserInfoManager()
+        let mailModel = MailModel(mailStorage: persistanceController,
+                                  networkService: networkController,
+                                  userManager: userManager)
+        self.mailPersistenceStorage = persistanceController
+        window.rootViewController = provideMainViewController(with: mailModel)
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,9 +59,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        mailPersistenceStorage?.save()
     }
 
 
 }
 
+private extension SceneDelegate {
+    func provideStorage() -> MailPersistenceStorageProtocol {
+        return MailCoreDataController()
+    }
+    
+    func provideNetwork() -> MailNetworkProtocol {
+        let mockConfiguration = URLSessionConfiguration.ephemeral
+        mockConfiguration.protocolClasses = [MailURLProtocol.self]
+        let session = URLSession(configuration: mockConfiguration)
+        return MailNetworkService(session: session)
+    }
+    
+    func provideUserInfoManager() -> UserManager {
+        return UserManager()
+    }
+    
+    func provideMainViewController(with mailModel: MailModel) -> UIViewController {
+        let mailListViewController = MailListViewController()
+        let mailListNavigationController = UINavigationController(rootViewController: mailListViewController)
+        
+        let mailDetailViewController = MailDetailViewController()
+        let mailDetailNavigationController = UINavigationController(rootViewController: mailDetailViewController)
+        
+        let splitViewController = SplitViewController()
+        splitViewController.viewControllers = [mailListNavigationController, mailDetailNavigationController]
+        return splitViewController
+    }
+}
