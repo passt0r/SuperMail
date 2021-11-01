@@ -8,5 +8,6 @@
 import Foundation
 
 protocol Request {
+    var path: String { get }
     var requestURL: URL? { get }
 }

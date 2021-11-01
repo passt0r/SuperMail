@@ -19,9 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+        let userManager = provideUserInfoManager()
+        // Only for test purposes
+        configureMock(with: userManager)
         let persistanceController = provideStorage()
         let networkController = provideNetwork()
-        let userManager = provideUserInfoManager()
         let mailModel = MailModel(mailStorage: persistanceController,
                                   networkService: networkController,
                                   userManager: userManager)
@@ -75,6 +77,33 @@ private extension SceneDelegate {
         mockConfiguration.protocolClasses = [MailURLProtocol.self]
         let session = URLSession(configuration: mockConfiguration)
         return MailNetworkService(session: session)
+    }
+    
+    func configureMock(with userManager: UserManager) {
+        guard let mailListFilePath = Bundle.main.path(forResource: "mailList", ofType: "json"),
+              let mailContentFilePath = Bundle.main.path(forResource: "mailContent", ofType: "json") else {
+                  return
+              }
+        
+        let mailListPath = MailListRequest(service: .test,
+                                              userInfo: userManager.getUserInfo()).path
+        let mailDetailPath = MailDetailRequest(service: .test,
+                                               userInfo: userManager.getUserInfo(),
+                                               mailID: "").path
+        guard let mailListURL = URL(string: mailListPath),
+              let mailDetailURL = URL(string: mailDetailPath) else {
+            return
+        }
+        do {
+            let mailListData = try Data(contentsOf: URL(fileURLWithPath: mailListFilePath))
+            let mailDetailData = try Data(contentsOf: URL(fileURLWithPath: mailContentFilePath))
+            
+            MailURLProtocol.mockResponses[mailListURL] = .success(mailListData)
+            MailURLProtocol.mockResponses[mailDetailURL] = .success(mailDetailData)
+        } catch {
+            fatalError("Mock files parsing error")
+        }
+        
     }
     
     func provideUserInfoManager() -> UserManager {

@@ -20,9 +20,12 @@ extension MailDetailRequest: Request {
             URLQueryItem(name: "Token", value: userInfo.userToken),
             URLQueryItem(name: "MailID", value: mailID)
         ]
-        var components = URLComponents(url: service.serviceURL,
-                                       resolvingAgainstBaseURL: true)
+        var components = URLComponents(string: path)
         components?.queryItems = queryParametersForMailDetailRequest
         return components?.url
+    }
+    
+    var path: String {
+        service.serviceURL.absoluteString + "/details"
     }
 }

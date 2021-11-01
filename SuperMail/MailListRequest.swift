@@ -18,9 +18,12 @@ extension MailListRequest: Request {
             URLQueryItem(name: "UserId", value: userInfo.userID),
             URLQueryItem(name: "Token", value: userInfo.userToken)
         ]
-        var components = URLComponents(url: service.serviceURL,
-                                       resolvingAgainstBaseURL: true)
+        var components = URLComponents(string: path)
         components?.queryItems = queryParametersForListRequest
         return components?.url
+    }
+    
+    var path: String {
+        service.serviceURL.absoluteString
     }
 }

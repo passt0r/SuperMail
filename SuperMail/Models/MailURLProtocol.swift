@@ -9,7 +9,7 @@ import Foundation
 import Dispatch
 
 class MailURLProtocol: URLProtocol {
-    static var mockResponses: [URL : (HTTPURLResponse, Data)] = [:]
+    static var mockResponses: [URL : Result<Data, Error>] = [:]
     
     override class func canInit(with request: URLRequest) -> Bool {
         return true
@@ -22,7 +22,7 @@ class MailURLProtocol: URLProtocol {
     override func stopLoading() {}
     
     override func startLoading() {
-        guard let (response, data) = MailURLProtocol.mockResponses[request.url!] else {
+        guard let responce = MailURLProtocol.mockResponses[request.url!] else {
             fatalError("No mock responce for url: \(request.url!)")
         }
         // Simulate background responce
@@ -30,14 +30,20 @@ class MailURLProtocol: URLProtocol {
             guard let self = self else {
                 return
             }
-            do {
+            switch responce {
+            case .success(let result):
+                let urlResponse = URLResponse(
+                    url: self.request.url!,
+                    mimeType: nil,
+                    expectedContentLength: result.count,
+                    textEncodingName: nil)
                 self.client?.urlProtocol(self,
-                                    didReceive: response,
+                                    didReceive: urlResponse,
                                     cacheStoragePolicy: .notAllowed)
                 self.client?.urlProtocol(self,
-                                    didLoad: data)
+                                    didLoad: result)
                 self.client?.urlProtocolDidFinishLoading(self)
-            } catch {
+            case .failure(let error):
                 self.client?.urlProtocol(self, didFailWithError: error)
             }
         }
