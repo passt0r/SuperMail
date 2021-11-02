@@ -76,34 +76,41 @@ private extension SceneDelegate {
         let mockConfiguration = URLSessionConfiguration.ephemeral
         mockConfiguration.protocolClasses = [MailURLProtocol.self]
         let session = URLSession(configuration: mockConfiguration)
-        return MailNetworkService(session: session)
+        let networkSession = NetworkURLSession(session: session)
+        return MailNetworkService(session: networkSession)
     }
     
     func configureMock(with userManager: UserManager) {
-        guard let mailListFilePath = Bundle.main.path(forResource: "mailList", ofType: "json"),
-              let mailContentFilePath = Bundle.main.path(forResource: "mailContent", ofType: "json") else {
-                  return
-              }
-        
-        let mailListPath = MailListRequest(service: .test,
-                                              userInfo: userManager.getUserInfo()).path
-        let mailDetailPath = MailDetailRequest(service: .test,
-                                               userInfo: userManager.getUserInfo(),
-                                               mailID: "").path
-        guard let mailListURL = URL(string: mailListPath),
-              let mailDetailURL = URL(string: mailDetailPath) else {
-            return
+        let mocks: (()->[URL : Result<Data, Error>])? = {
+            guard let mailListFilePath = Bundle.main.path(forResource: "mailList", ofType: "json"),
+                  let mailContentFilePath = Bundle.main.path(forResource: "mailContent", ofType: "json") else {
+                      assertionFailure("Mock files could not found")
+                      return [:]
+                  }
+            let mailListPath = MailListRequest(service: .test,
+                                               userInfo: userManager.getUserInfo()).apiAbsoluteURL
+            let mailDetailPath = MailDetailRequest(service: .test,
+                                                   userInfo: userManager.getUserInfo(),
+                                                   mailID: "").apiAbsoluteURL
+            guard let mailListURL = URL(string: mailListPath),
+                  let mailDetailURL = URL(string: mailDetailPath) else {
+                      assertionFailure("Mock files url invalid")
+                      return [:]
+                  }
+            do {
+                var mocks: [URL : Result<Data, Error>] = [:]
+                let mailListData = try Data(contentsOf: URL(fileURLWithPath: mailListFilePath))
+                let mailDetailData = try Data(contentsOf: URL(fileURLWithPath: mailContentFilePath))
+                mocks[mailListURL] = .success(mailListData)
+                mocks[mailDetailURL] = .success(mailDetailData)
+                
+                return mocks
+            } catch {
+                assertionFailure("Mock files parsing error")
+                return [:]
+            }
         }
-        do {
-            let mailListData = try Data(contentsOf: URL(fileURLWithPath: mailListFilePath))
-            let mailDetailData = try Data(contentsOf: URL(fileURLWithPath: mailContentFilePath))
-            
-            MailURLProtocol.mockResponses[mailListURL] = .success(mailListData)
-            MailURLProtocol.mockResponses[mailDetailURL] = .success(mailDetailData)
-        } catch {
-            fatalError("Mock files parsing error")
-        }
-        
+        MailURLProtocol.mocks = mocks
     }
     
     func provideUserInfoManager() -> UserManager {

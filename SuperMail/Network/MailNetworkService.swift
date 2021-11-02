@@ -6,43 +6,27 @@
 //
 
 import Foundation
-
+//TODO: should change to in-app models
 typealias MailListRequestResult = Result<MailListNetworkModel, Error>
 typealias MailDetailRequestResult = Result<MailContentNetworkModel, Error>
 
-protocol NetworkSessionProtocol {
-    func loadData(from url: URL,
-                  completion: @escaping (Data?, Error?) -> Void)
-}
-
 protocol MailNetworkProtocol {
-    func loadMailList(from service: MailService,
-                      with userInfo: User,
+    func loadMailList(with userInfo: User,
                       completion: @escaping (MailListRequestResult) -> Void)
-    func loadMailDetail(from service: MailService,
-                        with userInfo: User,
+    func loadMailDetail(with userInfo: User,
                         mailID: String,
                         completion: @escaping (MailDetailRequestResult) -> Void)
 }
 
-extension URLSession: NetworkSessionProtocol {
-    func loadData(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
-        let task = dataTask(with: url) { data, _, error in
-            completion(data, error)
-        }
-        task.resume()
-    }
-}
-
 class MailNetworkService: MailNetworkProtocol {
     private let session: NetworkSessionProtocol
+    private let service = MailService.test
 
-    init(session: NetworkSessionProtocol = URLSession.shared) {
+    init(session: NetworkSessionProtocol = NetworkURLSession()) {
         self.session = session
     }
     
-    func loadMailList(from service: MailService,
-                      with userInfo: User,
+    func loadMailList(with userInfo: User,
                       completion: @escaping (MailListRequestResult) -> Void) {
         let mailListRequest = MailListRequest(service: service,
                                               userInfo: userInfo)
@@ -51,8 +35,7 @@ class MailNetworkService: MailNetworkProtocol {
         
     }
     
-    func loadMailDetail(from service: MailService,
-                        with userInfo: User,
+    func loadMailDetail(with userInfo: User,
                         mailID: String,
                         completion: @escaping (MailDetailRequestResult) -> Void) {
         let mailDetailRequest = MailDetailRequest(service: service,
@@ -64,34 +47,26 @@ class MailNetworkService: MailNetworkProtocol {
 }
 
 private extension MailNetworkService {
-    func loadMailData<MailData: Decodable>(with request: Request,
+    func loadMailData<MailData: Decodable>(with request: UserIdentifiableRequest,
                                            completion: @escaping (Result<MailData, Error>) -> Void) {
-        guard let requestURL = request.requestURL else {
+        guard let requestURL = request.request else {
             let error = NSError(domain: "Request", code: 0)
-            DispatchQueue.main.async {
-                completion(.failure(error))
-            }
+            completion(.failure(error))
             return
         }
-        session.loadData(from: requestURL) { data, error in
-            guard let resultData = data else {
-                let error = error ?? NSError(domain: "Network", code: 0)
-                DispatchQueue.main.async {
+        session.loadData(from: requestURL) { result in
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                guard let mailData = try? decoder.decode(MailData.self, from: data) else {
+                    let error = NSError(domain: "Decode", code: 0)
                     completion(.failure(error))
+                    return
                 }
-                return
-            }
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            guard let mailData = try? decoder.decode(MailData.self, from: resultData) else {
-                let error = error ?? NSError(domain: "Decode", code: 0)
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-                return
-            }
-            DispatchQueue.main.async {
                 completion(.success(mailData))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
         

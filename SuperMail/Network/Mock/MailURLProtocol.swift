@@ -9,10 +9,12 @@ import Foundation
 import Dispatch
 
 class MailURLProtocol: URLProtocol {
-    static var mockResponses: [URL : Result<Data, Error>] = [:]
+    private static var mockResponses: [URL : Result<Data, Error>] = [:]
+    static var mocks: (()->[URL : Result<Data, Error>])?
     
     override class func canInit(with request: URLRequest) -> Bool {
-        return true
+        let mockService = MailService.test.serviceURL.absoluteString
+        return request.url?.absoluteString.contains(mockService) ?? false
     }
     
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
@@ -22,18 +24,28 @@ class MailURLProtocol: URLProtocol {
     override func stopLoading() {}
     
     override func startLoading() {
-        guard let responce = MailURLProtocol.mockResponses[request.url!] else {
-            fatalError("No mock responce for url: \(request.url!)")
-        }
         // Simulate background responce
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let self = self else {
+                assertionFailure("No mock URL protocol")
+                return
+            }
+            self.loadMocks()
+            guard let requestUrl = self.request.url else {
+                assertionFailure("No url for request: \(self.request)")
+                return
+            }
+            var components = URLComponents(url: requestUrl, resolvingAgainstBaseURL: false)
+            components?.queryItems = nil
+            guard let url = components?.url,
+                  let responce = MailURLProtocol.mockResponses[url] else {
+                assertionFailure("No mock responce for url: \(requestUrl)")
                 return
             }
             switch responce {
             case .success(let result):
                 let urlResponse = URLResponse(
-                    url: self.request.url!,
+                    url: requestUrl,
                     mimeType: nil,
                     expectedContentLength: result.count,
                     textEncodingName: nil)
@@ -47,5 +59,15 @@ class MailURLProtocol: URLProtocol {
                 self.client?.urlProtocol(self, didFailWithError: error)
             }
         }
+    }
+}
+
+private extension MailURLProtocol {
+    func loadMocks() {
+        guard let mocks = MailURLProtocol.mocks,
+              MailURLProtocol.mockResponses.isEmpty else {
+            return
+        }
+        MailURLProtocol.mockResponses = mocks()
     }
 }

@@ -12,7 +12,7 @@ protocol MailPersistenceStorageProtocol {
     func save()
 }
 
-final class MailCoreDataController {
+final class MailCoreDataController: MailPersistenceStorageProtocol {
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -39,10 +39,8 @@ final class MailCoreDataController {
         })
         return container
     }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
+    
+    func save() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -54,11 +52,5 @@ final class MailCoreDataController {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-}
-
-extension MailCoreDataController: MailPersistenceStorageProtocol {
-    func save() {
-        saveContext()
     }
 }

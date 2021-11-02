@@ -8,9 +8,11 @@
 import Foundation
 
 class UserManager {
+    private static let mockUser = User(userID: UUID().uuidString,
+                                       userToken: UUID().uuidString)
     func getUserInfo() -> User {
         // Just mocked data, even not saved to device
-        return .init(userID: "TestUser", userToken: "TestToken007")
+        UserManager.mockUser
     }
 }
 
