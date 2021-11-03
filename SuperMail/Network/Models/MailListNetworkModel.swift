@@ -48,7 +48,6 @@ struct MailListElementNetworkModel: Decodable {
 }
 
 //MARK: - Parse to domain models
-
 extension MailInfoModel {
     init(from model: MailListElementNetworkModel) {
         self.mailId = model.id

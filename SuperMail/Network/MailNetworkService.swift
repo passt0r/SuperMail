@@ -6,15 +6,18 @@
 //
 
 import Foundation
-//TODO: should change to in-app models
+
 //MARK: - typealiases
 typealias MailListRequestResult = Result<[MailInfoModel], Error>
 typealias MailDetailRequestResult = Result<MailContentModel, Error>
 
 //MARK: - Protocols
+///Classes that implementing this protocol should provide network services for downloading emails alongside with their content.
 protocol MailNetworkProtocol {
+    ///Uses for downloading list of emails.
     func loadMailList(with userInfo: User,
                       completion: @escaping (MailListRequestResult) -> Void)
+    ///Uses for downloading content of the provided email.
     func loadMailDetail(with userInfo: User,
                         for mail: MailInfoModel,
                         completion: @escaping (MailDetailRequestResult) -> Void)

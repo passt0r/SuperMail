@@ -13,4 +13,12 @@ struct MailInfoModel {
     let fromAdress: String
     let subject: String
     let snippet: String
+    
+    var mailContent: MailContentModel?
+}
+
+extension MailInfoModel {
+    mutating func setNewMailContent(newContent: MailContentModel?) {
+        mailContent = newContent
+    }
 }

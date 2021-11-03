@@ -20,13 +20,25 @@ class MailModel {
         self.userManager = userManager
     }
     
-    private var emailList: [String] = []
+    private var emailList: [MailInfoModel] = []
     
-    func getEmailList() -> [String] {
-        return emailList
+}
+
+//MARK: - Mail list
+extension MailModel {
+    var emailsCount: Int {
+        return emailList.count
     }
     
-    func getEmailDetail() -> Data {
-        return .init()
+    subscript(emailIndex: Int) -> MailInfoModel {
+        return emailList[emailIndex]
+    }
+}
+
+//MARK: - Mail detail
+extension MailModel {
+    func getEmailDetail(for mail: MailInfoModel) -> MailContentModel {
+        //TODO: implementation
+        return .init(mailId: "", content: .init())
     }
 }

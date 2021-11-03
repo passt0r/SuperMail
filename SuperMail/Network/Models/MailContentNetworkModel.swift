@@ -33,6 +33,7 @@ struct MailContentNetworkModel: Decodable {
     }
 }
 
+//MARK: - Parse to domain models
 extension MailContentModel {
     init(from model: MailContentNetworkModel) {
         self.mailId = model.id

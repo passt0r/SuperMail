@@ -8,6 +8,12 @@
 import Foundation
 
 struct MailContentModel {
-    let mailId: String
+    var mailId: String
     let content: Data
+}
+
+extension MailContentModel {
+    mutating func setNewMailId(newId: String) {
+        mailId = newId
+    }
 }
