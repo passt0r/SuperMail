@@ -58,9 +58,9 @@ class MailNetworkService: MailNetworkProtocol {
 }
 
 private extension MailNetworkService {
-    func loadMailData<MailData: Decodable>(with request: UserIdentifiableRequest,
-                                           decode toType: MailData.Type,
-                                           completion: @escaping (Result<MailData, Error>) -> Void) {
+    func loadMailData<MailData: MailDecodable>(with request: UserIdentifiableRequest,
+                                               decode toType: MailData.Type,
+                                               completion: @escaping (Result<MailData, Error>) -> Void) {
         guard let requestURL = request.request else {
             completion(.failure(NetworkError.request))
             return
@@ -81,21 +81,5 @@ private extension MailNetworkService {
             }
         }
         
-    }
-}
-
-// MARK: - Network error
-enum NetworkError: Error, LocalizedError {
-    case network, request, decode
-    
-    public var errorDescription: String? {
-        switch self {
-        case .network:
-            return "Unkown sending request error"
-        case .request:
-            return "Error while sending request"
-        case .decode:
-            return "Error while decode server data"
-        }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MailContentNetworkModel: Decodable {
+struct MailContentNetworkModel: MailDecodable {
     let id: String
     let payload: Data
     

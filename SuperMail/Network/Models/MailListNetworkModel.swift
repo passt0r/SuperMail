@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import CloudKit
 
-struct MailListNetworkModel: Decodable {
+struct MailListNetworkModel: MailDecodable {
     let mails: [MailListElementNetworkModel]
     
     enum CodingKeys: String, CodingKey {

@@ -54,3 +54,11 @@ final class MailCoreDataController: MailPersistenceStorageProtocol {
         }
     }
 }
+
+private extension MailInfoModel {
+    
+}
+
+private extension MailContentModel {
+    
+}

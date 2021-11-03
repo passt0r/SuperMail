@@ -34,6 +34,8 @@
 		59FCE0F5273096BA00F74F68 /* notifiedNewMail.json in Resources */ = {isa = PBXBuildFile; fileRef = 59FCE0F4273096BA00F74F68 /* notifiedNewMail.json */; };
 		59FCE0F82730B40A00F74F68 /* MailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0F72730B40A00F74F68 /* MailInfoModel.swift */; };
 		59FCE0FA2730B41A00F74F68 /* MailContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0F92730B41A00F74F68 /* MailContentModel.swift */; };
+		59FCE0FC27334AD500F74F68 /* MailDecodableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0FB27334AD500F74F68 /* MailDecodableProtocol.swift */; };
+		59FCE0FE27334B2800F74F68 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0FD27334B2800F74F68 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		59FCE0F4273096BA00F74F68 /* notifiedNewMail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifiedNewMail.json; sourceTree = "<group>"; };
 		59FCE0F72730B40A00F74F68 /* MailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailInfoModel.swift; sourceTree = "<group>"; };
 		59FCE0F92730B41A00F74F68 /* MailContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailContentModel.swift; sourceTree = "<group>"; };
+		59FCE0FB27334AD500F74F68 /* MailDecodableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailDecodableProtocol.swift; sourceTree = "<group>"; };
+		59FCE0FD27334B2800F74F68 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,7 @@
 				59FCE0F12730789D00F74F68 /* Requests */,
 				59FCE0EE27305F2600F74F68 /* NetworkURLSession.swift */,
 				59FCE0CF271F2E0F00F74F68 /* MailNetworkService.swift */,
+				59FCE0FD27334B2800F74F68 /* NetworkError.swift */,
 				59FCE0DB272F622100F74F68 /* MailServices.swift */,
 			);
 			path = Network;
@@ -164,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				59FCE0D7272F2CF100F74F68 /* MailListNetworkModel.swift */,
+				59FCE0FB27334AD500F74F68 /* MailDecodableProtocol.swift */,
 				59FCE0D9272F2CFD00F74F68 /* MailContentNetworkModel.swift */,
 			);
 			path = Models;
@@ -265,10 +271,12 @@
 				59FCE0E2272F707900F74F68 /* MailDetailRequest.swift in Sources */,
 				59FCE0D0271F2E0F00F74F68 /* MailNetworkService.swift in Sources */,
 				59FCE0BB271DB5BF00F74F68 /* SuperMail.xcdatamodeld in Sources */,
+				59FCE0FC27334AD500F74F68 /* MailDecodableProtocol.swift in Sources */,
 				59FCE0CA271F012400F74F68 /* MailListViewController.swift in Sources */,
 				59FCE0F82730B40A00F74F68 /* MailInfoModel.swift in Sources */,
 				59FCE0D3271F759000F74F68 /* MailURLProtocol.swift in Sources */,
 				59FCE0B1271DB5BF00F74F68 /* AppDelegate.swift in Sources */,
+				59FCE0FE27334B2800F74F68 /* NetworkError.swift in Sources */,
 				59FCE0FA2730B41A00F74F68 /* MailContentModel.swift in Sources */,
 				59FCE0DE272F64C000F74F68 /* User.swift in Sources */,
 				59FCE0CC271F014300F74F68 /* MailDetailViewController.swift in Sources */,
