@@ -7,17 +7,20 @@
 
 import Foundation
 //TODO: should change to in-app models
-typealias MailListRequestResult = Result<MailListNetworkModel, Error>
-typealias MailDetailRequestResult = Result<MailContentNetworkModel, Error>
+//MARK: - typealiases
+typealias MailListRequestResult = Result<[MailInfoModel], Error>
+typealias MailDetailRequestResult = Result<MailContentModel, Error>
 
+//MARK: - Protocols
 protocol MailNetworkProtocol {
     func loadMailList(with userInfo: User,
                       completion: @escaping (MailListRequestResult) -> Void)
     func loadMailDetail(with userInfo: User,
-                        mailID: String,
+                        for mail: MailInfoModel,
                         completion: @escaping (MailDetailRequestResult) -> Void)
 }
 
+//MARK: - Service implementation
 class MailNetworkService: MailNetworkProtocol {
     private let session: NetworkSessionProtocol
     private let service = MailService.test
@@ -31,27 +34,32 @@ class MailNetworkService: MailNetworkProtocol {
         let mailListRequest = MailListRequest(service: service,
                                               userInfo: userInfo)
         loadMailData(with: mailListRequest,
-                     completion: completion)
+                     decode: MailListNetworkModel.self) { result in
+            let mappedResult = result.map { $0.mails.map(MailInfoModel.init(from:)) }
+            completion(mappedResult)
+        }
         
     }
     
     func loadMailDetail(with userInfo: User,
-                        mailID: String,
+                        for mail: MailInfoModel,
                         completion: @escaping (MailDetailRequestResult) -> Void) {
         let mailDetailRequest = MailDetailRequest(service: service,
                                                   userInfo: userInfo,
-                                                  mailID: mailID)
+                                                  mailID: mail.mailId)
         loadMailData(with: mailDetailRequest,
-                     completion: completion)
+                     decode: MailContentNetworkModel.self) { result in
+            completion(result.map(MailContentModel.init(from:)))
+        }
     }
 }
 
 private extension MailNetworkService {
     func loadMailData<MailData: Decodable>(with request: UserIdentifiableRequest,
+                                           decode toType: MailData.Type,
                                            completion: @escaping (Result<MailData, Error>) -> Void) {
         guard let requestURL = request.request else {
-            let error = NSError(domain: "Request", code: 0)
-            completion(.failure(error))
+            completion(.failure(NetworkError.request))
             return
         }
         session.loadData(from: requestURL) { result in
@@ -59,9 +67,9 @@ private extension MailNetworkService {
             case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
+                decoder.dataDecodingStrategy = .base64
                 guard let mailData = try? decoder.decode(MailData.self, from: data) else {
-                    let error = NSError(domain: "Decode", code: 0)
-                    completion(.failure(error))
+                    completion(.failure(NetworkError.decode))
                     return
                 }
                 completion(.success(mailData))
@@ -70,5 +78,21 @@ private extension MailNetworkService {
             }
         }
         
+    }
+}
+
+// MARK: - Network error
+enum NetworkError: Error, LocalizedError {
+    case network, request, decode
+    
+    public var errorDescription: String? {
+        switch self {
+        case .network:
+            return "Unkown sending request error"
+        case .request:
+            return "Error while sending request"
+        case .decode:
+            return "Error while decode server data"
+        }
     }
 }

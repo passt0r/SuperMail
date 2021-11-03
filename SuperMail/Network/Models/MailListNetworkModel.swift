@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CloudKit
 
 struct MailListNetworkModel: Decodable {
     let mails: [MailListElementNetworkModel]
@@ -43,5 +44,17 @@ struct MailListElementNetworkModel: Decodable {
         fromAdress = try container.decode(String.self, forKey: .from)
         subject = try container.decode(String.self, forKey: .subject)
         snippet = try container.decode(String.self, forKey: .snippet)
+    }
+}
+
+//MARK: - Parse to domain models
+
+extension MailInfoModel {
+    init(from model: MailListElementNetworkModel) {
+        self.mailId = model.id
+        self.date = model.date
+        self.fromAdress = model.fromAdress
+        self.subject = model.subject
+        self.snippet = model.snippet
     }
 }

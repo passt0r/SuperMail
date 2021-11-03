@@ -28,8 +28,7 @@ class NetworkURLSession: NetworkSessionProtocol {
             } else if let error = error {
                 completion(.failure(error))
             } else {
-               let error = NSError(domain: "Network", code: 0)
-                completion(.failure(error))
+                completion(.failure(NetworkError.network))
             }
         }
         task.resume()

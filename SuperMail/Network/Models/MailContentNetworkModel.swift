@@ -29,10 +29,13 @@ struct MailContentNetworkModel: Decodable {
         id = try container.decode(String.self, forKey: .id)
         let payloadContainer = try container.nestedContainer(keyedBy: PayloadCodingKeys.self, forKey: .payload)
         let payloadBodyContainer = try payloadContainer.nestedContainer(keyedBy: PayloadBodyCodingKeys.self, forKey: .body)
-        let payloadEncodedString = try payloadBodyContainer.decode(String.self, forKey: .data)
-        guard let payloadData = Data(base64Encoded: payloadEncodedString) else {
-            throw NSError(domain: "Decoding", code: 0)
-        }
-        payload = payloadData
+        payload = try payloadBodyContainer.decode(Data.self, forKey: .data)
+    }
+}
+
+extension MailContentModel {
+    init(from model: MailContentNetworkModel) {
+        self.mailId = model.id
+        self.content = model.payload
     }
 }

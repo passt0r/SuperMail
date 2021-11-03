@@ -81,7 +81,7 @@ private extension SceneDelegate {
     }
     
     func configureMock(with userManager: UserManager) {
-        let mocks: (()->[URL : Result<Data, Error>])? = {
+        MailURLProtocol.mocks = {
             guard let mailListFilePath = Bundle.main.path(forResource: "mailList", ofType: "json"),
                   let mailContentFilePath = Bundle.main.path(forResource: "mailContent", ofType: "json") else {
                       assertionFailure("Mock files could not found")
@@ -110,7 +110,6 @@ private extension SceneDelegate {
                 return [:]
             }
         }
-        MailURLProtocol.mocks = mocks
     }
     
     func provideUserInfoManager() -> UserManager {
