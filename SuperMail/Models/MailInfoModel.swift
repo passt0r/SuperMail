@@ -13,6 +13,7 @@ struct MailInfoModel {
     let fromAdress: String
     let subject: String
     let snippet: String
+    let isRead: Bool
     
     var mailContent: MailContentModel?
 }

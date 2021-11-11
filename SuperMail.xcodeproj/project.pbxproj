@@ -36,6 +36,7 @@
 		59FCE0FA2730B41A00F74F68 /* MailContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0F92730B41A00F74F68 /* MailContentModel.swift */; };
 		59FCE0FC27334AD500F74F68 /* MailDecodableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0FB27334AD500F74F68 /* MailDecodableProtocol.swift */; };
 		59FCE0FE27334B2800F74F68 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0FD27334B2800F74F68 /* NetworkError.swift */; };
+		59FCE1002738229400F74F68 /* MailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FCE0FF2738229300F74F68 /* MailProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		59FCE0F92730B41A00F74F68 /* MailContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailContentModel.swift; sourceTree = "<group>"; };
 		59FCE0FB27334AD500F74F68 /* MailDecodableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailDecodableProtocol.swift; sourceTree = "<group>"; };
 		59FCE0FD27334B2800F74F68 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		59FCE0FF2738229300F74F68 /* MailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			children = (
 				59FCE0B9271DB5BF00F74F68 /* SuperMail.xcdatamodeld */,
 				59FCE0D4271F8D6C00F74F68 /* MailCoreDataController.swift */,
+				59FCE0FF2738229300F74F68 /* MailProvider.swift */,
 			);
 			path = Persistance;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				59FCE0E2272F707900F74F68 /* MailDetailRequest.swift in Sources */,
 				59FCE0D0271F2E0F00F74F68 /* MailNetworkService.swift in Sources */,
 				59FCE0BB271DB5BF00F74F68 /* SuperMail.xcdatamodeld in Sources */,
+				59FCE1002738229400F74F68 /* MailProvider.swift in Sources */,
 				59FCE0FC27334AD500F74F68 /* MailDecodableProtocol.swift in Sources */,
 				59FCE0CA271F012400F74F68 /* MailListViewController.swift in Sources */,
 				59FCE0F82730B40A00F74F68 /* MailInfoModel.swift in Sources */,

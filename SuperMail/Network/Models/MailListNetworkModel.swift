@@ -54,5 +54,6 @@ extension MailInfoModel {
         self.fromAdress = model.fromAdress
         self.subject = model.subject
         self.snippet = model.snippet
+        self.isRead = false
     }
 }

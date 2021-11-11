@@ -8,37 +8,69 @@
 import Foundation
 
 class MailModel {
-    private let mailStorage: MailPersistenceStorageProtocol
-    private let networkService: MailNetworkProtocol
+    private let mailStorage: MailPersistenceStorage
+    private let mailProvider: MailProvider
+    private let networkService: MailNetwork
     private let userManager: UserManager
     
-    init(mailStorage: MailPersistenceStorageProtocol,
-         networkService: MailNetworkProtocol,
+    init(mailStorage: MailPersistenceStorage,
+         mailProvider: MailProvider,
+         networkService: MailNetwork,
          userManager: UserManager) {
         self.mailStorage = mailStorage
+        self.mailProvider = mailProvider
         self.networkService = networkService
         self.userManager = userManager
     }
-    
-    private var emailList: [MailInfoModel] = []
+
     
 }
 
 //MARK: - Mail list
 extension MailModel {
     var emailsCount: Int {
-        return emailList.count
+        mailProvider.mailsCount
     }
     
     subscript(emailIndex: Int) -> MailInfoModel {
-        return emailList[emailIndex]
+        mailProvider[emailIndex]
     }
 }
 
-//MARK: - Mail detail
+extension MailModel {
+    func beginLoading() throws {
+        try updateMails()
+        try mailProvider.loadData()
+    }
+    
+    func updateMails() throws {
+        networkService.loadMailList(with: userManager.getUserInfo()) { [weak self] mailListResult in
+            guard let self = self else {
+                return
+            }
+            switch mailListResult {
+            case .success(let mailsList):
+                self.mailStorage.add(newMails: mailsList)
+            case .failure(let error):
+                //TODO: throws error outside closure
+                break
+            }
+        }
+    }
+}
+
+//MARK: - Mail
 extension MailModel {
     func getEmailDetail(for mail: MailInfoModel) -> MailContentModel {
-        //TODO: implementation
+        //TODO: implementation (load data if not exist and after - update mail object)
         return .init(mailId: "", content: .init())
+    }
+    
+    func read(mail: MailInfoModel) {
+        mailStorage.read(mail: mail)
+    }
+    
+    func delete(mail: MailInfoModel) {
+        mailStorage.delete(mail: mail)
     }
 }

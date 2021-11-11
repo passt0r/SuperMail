@@ -8,11 +8,16 @@
 import Foundation
 import CoreData
 
-protocol MailPersistenceStorageProtocol {
+///Classes that implementing this protocol should provide services for working with persistance storage for saving emails alongside with their content.
+protocol MailPersistenceStorage {
+    func add(newMails: [MailInfoModel])
+    func add(content: MailContentModel, to mail: MailInfoModel)
+    func delete(mail: MailInfoModel)
+    func read(mail: MailInfoModel)
     func save()
 }
 
-final class MailCoreDataController: MailPersistenceStorageProtocol {
+final class MailCoreDataController {
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -39,6 +44,24 @@ final class MailCoreDataController: MailPersistenceStorageProtocol {
         })
         return container
     }()
+}
+
+extension MailCoreDataController: MailPersistenceStorage {
+    func add(newMails: [MailInfoModel]) {
+        //TODO: Add imp
+    }
+    
+    func add(content: MailContentModel, to mail: MailInfoModel) {
+        //TODO: Add imp
+    }
+    
+    func delete(mail: MailInfoModel) {
+        //TODO: Add imp
+    }
+    
+    func read(mail: MailInfoModel) {
+        //TODO: Add imp
+    }
     
     func save() {
         let context = persistentContainer.viewContext
@@ -49,16 +72,22 @@ final class MailCoreDataController: MailPersistenceStorageProtocol {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                assertionFailure("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
 }
 
-private extension MailInfoModel {
-    
-}
-
-private extension MailContentModel {
-    
+private extension SavedMail {
+    func create(with context: NSManagedObjectContext,
+                from mail: MailInfoModel) -> SavedMail {
+        let savedMail = SavedMail(context: context)
+        savedMail.uuid = .init(uuidString: mail.mailId) ?? .init()
+        savedMail.date = mail.date
+        savedMail.from = mail.fromAdress
+        savedMail.subject = mail.subject
+        savedMail.content_preview = mail.snippet
+        
+        return savedMail
+    }
 }

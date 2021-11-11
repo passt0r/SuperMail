@@ -2,13 +2,13 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="SavedMail" representedClassName="SavedMail" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <attribute name="content_preview" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="from" optional="YES" attributeType="String"/>
-        <attribute name="isDeletedMail" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="subject" optional="YES" attributeType="String"/>
-        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="content_preview" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="from" attributeType="String"/>
+        <attribute name="isDeletedMail" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="subject" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
         <element name="SavedMail" positionX="-63" positionY="-18" width="128" height="149"/>

@@ -13,7 +13,7 @@ typealias MailDetailRequestResult = Result<MailContentModel, Error>
 
 //MARK: - Protocols
 ///Classes that implementing this protocol should provide network services for downloading emails alongside with their content.
-protocol MailNetworkProtocol {
+protocol MailNetwork {
     ///Uses for downloading list of emails.
     func loadMailList(with userInfo: User,
                       completion: @escaping (MailListRequestResult) -> Void)
@@ -24,11 +24,11 @@ protocol MailNetworkProtocol {
 }
 
 //MARK: - Service implementation
-class MailNetworkService: MailNetworkProtocol {
-    private let session: NetworkSessionProtocol
+class MailNetworkService: MailNetwork {
+    private let session: NetworkSession
     private let service = MailService.test
 
-    init(session: NetworkSessionProtocol = NetworkURLSession()) {
+    init(session: NetworkSession = NetworkURLSession()) {
         self.session = session
     }
     

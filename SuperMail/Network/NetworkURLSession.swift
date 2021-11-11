@@ -9,15 +9,15 @@ import Foundation
 
 typealias SessionResult = Result<Data, Error>
 
-protocol NetworkSessionProtocol {
+protocol NetworkSession {
     func loadData(from urlRequest: URLRequest,
                   completion: @escaping (SessionResult) -> Void)
 }
 
-class NetworkURLSession: NetworkSessionProtocol {
+class NetworkURLSession: NetworkSession {
     let session: URLSession
     
-    init(session: URLSession = .shared) {
+    init(with session: URLSession = .shared) {
         self.session = session
     }
     

@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var mailPersistenceStorage: MailPersistenceStorageProtocol?
+    var mailPersistenceStorage: MailPersistenceStorage?
     var userManager: UserManager?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -22,12 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let userManager = provideUserInfoManager()
         // Only for test purposes
         configureMock(with: userManager)
-        let persistanceController = provideStorage()
+        let persistance = providePersistance()
         let networkController = provideNetwork()
-        let mailModel = MailModel(mailStorage: persistanceController,
+        let mailModel = MailModel(mailStorage: persistance.storage,
+                                  mailProvider: persistance.provider,
                                   networkService: networkController,
                                   userManager: userManager)
-        self.mailPersistenceStorage = persistanceController
+        self.mailPersistenceStorage = persistance.storage
         window.rootViewController = provideMainViewController(with: mailModel)
         self.window = window
         window.makeKeyAndVisible()
@@ -68,15 +69,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 private extension SceneDelegate {
-    func provideStorage() -> MailPersistenceStorageProtocol {
-        return MailCoreDataController()
+    func providePersistance() -> (storage: MailPersistenceStorage,
+                                  provider: MailProvider) {
+        let storage = MailCoreDataController()
+        let provider = MailFetchController(mailStorage: storage)
+        return (storage: storage, provider: provider)
     }
     
-    func provideNetwork() -> MailNetworkProtocol {
+    func provideNetwork() -> MailNetwork {
         let mockConfiguration = URLSessionConfiguration.ephemeral
         mockConfiguration.protocolClasses = [MailURLProtocol.self]
         let session = URLSession(configuration: mockConfiguration)
-        let networkSession = NetworkURLSession(session: session)
+        let networkSession = NetworkURLSession(with: session)
         return MailNetworkService(session: networkSession)
     }
     
