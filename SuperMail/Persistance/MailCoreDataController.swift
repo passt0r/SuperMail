@@ -8,6 +8,8 @@
 import Foundation
 import CoreData
 
+typealias MailPersistanceService = MailPersistenceStorage & MailProvider
+
 ///Classes that implementing this protocol should provide services for working with persistance storage for saving emails alongside with their content.
 protocol MailPersistenceStorage {
     func add(newMails: [MailInfoModel])
@@ -17,7 +19,23 @@ protocol MailPersistenceStorage {
     func save()
 }
 
-final class MailCoreDataController {
+///Classes that implementing this protocol should provide services for direct working with mails at persistance storage: read all emails info and provide actions to the delegate when any changes occur.
+protocol MailProvider {
+    var delegate: MailProviderDelegate? { get }
+    func loadData() throws
+    var mailsCount: Int { get }
+    subscript(item: Int) -> MailInfoModel { get }
+}
+
+///Classes that implementing this protocol should react on any changes that MailProvider provides.
+protocol MailProviderDelegate: AnyObject {
+    func mailDeleted(at index: Int)
+    func add(mail: MailInfoModel, at index: Int)
+    func update(mail: MailInfoModel, at index: Int)
+    func mailSortOrderChanged()
+}
+
+final class MailCoreDataController: NSObject {
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
